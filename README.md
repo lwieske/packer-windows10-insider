@@ -1,6 +1,10 @@
-# Packer-Windows10-Insider (May 2016)
+# Packer-Windows10-Insider (14390/July 2016)
 
 Makes a Windows 10 x64 box for use with Virtualbox.
+
+**Rumours: Windows 10 Insider Preview build 14390 is RTM of Anniversary Update**
+
+![anniversaryt](http://cdn.redmondpie.com/wp-content/uploads/2016/03/windows-10-update-anniversary.jpg)
 
 Inspired by so many other repositories on GitHub.
 
@@ -8,7 +12,7 @@ Inspired by so many other repositories on GitHub.
 |---:|---:|---|---|
 | 10240	| | Threshold1 | July 2015 |
 | 10586	| 1511 | Threshold2 | November 2015 |
-| **14352**	| **1607** | **Redstone** | **May 2016** |
+| **14390**	| **1607** | **Redstone** | **July 2016** |
 
 ```
 $ packer build -force -only=virtualbox-iso windows10-insider.json
@@ -20,7 +24,7 @@ $ vagrant init windows10-insider
 $ vagrant up
 ```
 
-This repository is based on **Insider Preview 14352 (May 2016)** and the build does the following:
+This repository is based on **Insider Preview 14390 (July 2016)** and the build does the following:
 
 * Autonunattend.xml
   * update windows
