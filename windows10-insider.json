@@ -1,8 +1,8 @@
 {
     "variables": {
         "name":       "windows10-insider",
-        "iso_path":   "iso/14390.0.160712-1452.RS1_RELEASE_CLIENTPRO_OEMRET_X64FRE_DE-DE.ISO",
-        "iso_sha256": "e5b732a0dd5ad7ba669abbce1876b123ab4f15e8f6c67d4d5f85105fce59cebf"
+        "iso_path":   "iso/Windows10_InsiderPreview_Client_x64_de-de_14393.iso",
+        "iso_sha256": "464ace5a4d1922b290d7d1fc13e95b7fd380bda11dda9fbd6a6ff9067392c9fb"
     },
     "builders": [
         {
