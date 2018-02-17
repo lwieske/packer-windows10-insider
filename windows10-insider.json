@@ -1,8 +1,8 @@
 {
     "variables": {
         "name":       "windows10-insider",
-        "iso_path":   "iso/Windows10_InsiderPreview_Client_x64_de-de_14393.iso",
-        "iso_sha256": "464ace5a4d1922b290d7d1fc13e95b7fd380bda11dda9fbd6a6ff9067392c9fb"
+        "iso_path":   "iso/Windows10_InsiderPreview_x64_de-de_17025.iso",
+        "iso_sha256": "06cc4ee976ae40b341f5448366c14b87a6f5e6020883aab61b395d359a74993a"
     },
     "builders": [
         {
@@ -37,22 +37,27 @@
             "restart_timeout": "30m"
         },
         {
-            "type": "powershell",
-            "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
-            "scripts": [
-                "enable-rdp.ps1",
-                "guest-tools.ps1"
-            ]
+            "type":   "powershell",
+            "script": "enable-rdp.ps1"
+        },
+        {
+          "type":   "powershell",
+          "script": "guest-tools.ps1"
+        },
+        {
+          "type":   "powershell",
+          "script": "chocolatey.ps1"
+        },
+        {
+          "type":   "powershell",
+          "script": "choco-packs.ps1"
         },
         {
             "type": "windows-restart"
         },
         {
-            "type": "powershell",
-            "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
-            "scripts": [
-                "final-tweaks.ps1"
-            ]
+            "type":   "powershell",
+            "script": "final-tweaks.ps1"
         }
     ],
     "post-processors": [
