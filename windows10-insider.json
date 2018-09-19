@@ -1,8 +1,8 @@
 {
     "variables": {
         "name":       "windows10-insider",
-        "iso_path":   "iso/Windows10_InsiderPreview_x64_de-de_17025.iso",
-        "iso_sha256": "06cc4ee976ae40b341f5448366c14b87a6f5e6020883aab61b395d359a74993a"
+        "iso_path":   "iso/Windows10_InsiderPreview_Client_x64_de-de_17744.iso",
+        "iso_sha256": "b711443ff351636bb4ea9de882ad686000f05f52fe53b999490d9235a56dfbf6"
     },
     "builders": [
         {
@@ -57,7 +57,10 @@
         },
         {
             "type":   "powershell",
-            "script": "final-tweaks.ps1"
+            "scripts": [
+                "final-tweaks.ps1",
+                "compact.ps1"
+            ]
         }
     ],
     "post-processors": [
