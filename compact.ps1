@@ -1,15 +1,12 @@
-choco install ultradefrag sdelete --confirm --limit-output
+$ProgressPreference = "SilentlyContinue"
+
+choco install sdelete ultradefrag --confirm --limit-output
 
 Stop-Service wuauserv
 Set-Service wuauserv -Startup disabled
 
-Get-ChildItem -Path 'C:\Windows\SoftwareDistribution\Download' -Recurse | Remove-Item -Force -Recurse
-
 udefrag --optimize --repeat C:
 
-Set-ItemProperty                                                               `
-    'HKCU:\Software\Sysinternals\SDelete'                                      `
-    -name EulaAccepted                                                         `
-    -value 1
+Set-ItemProperty 'HKCU:\Software\Sysinternals\SDelete' -name EulaAccepted -value 1
 
 sdelete -q -z C:

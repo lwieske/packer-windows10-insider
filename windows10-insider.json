@@ -1,73 +1,73 @@
 {
     "variables": {
-        "name":       "windows10-insider",
-        "iso_path":   "iso/Windows10_InsiderPreview_Client_x64_de-de_17744.iso",
-        "iso_sha256": "b711443ff351636bb4ea9de882ad686000f05f52fe53b999490d9235a56dfbf6"
+        "name": "windows10-insider",
+        "iso_path": "iso/Windows10_InsiderPreview_Client_x64_de-de_18343.iso",
+        "iso_sha256": "e2280085d95a44a4147db4a5281a9ccfdae8e97c5ac2eddafce7f3c11b273186"
     },
-    "builders": [
-        {
-            "type":                 "virtualbox-iso",
-            "communicator":         "winrm",
-            "disk_size":            61440,
-            "floppy_files": [
-                "Autounattend.xml",
-                "update-windows.ps1",
-                "enable-winrm.ps1"
-            ],
-            "guest_os_type":        "Windows10_64",
-            "headless":             false,
-            "iso_url":              "{{user `iso_path`}}",
-            "iso_checksum_type":    "sha256",
-            "iso_checksum":         "{{user `iso_sha256`}}",
-            "winrm_username":       "vagrant",
-            "winrm_password":       "vagrant",
-            "winrm_timeout":        "6h",
-            "shutdown_command":     "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-            "guest_additions_mode": "attach",
-            "vboxmanage": [
-                ["modifyvm", "{{.Name}}", "--memory", "1024"],
-                ["modifyvm", "{{.Name}}", "--cpus",      "2"],
-                ["modifyvm", "{{.Name}}", "--vram",     "32"]
-            ]
-        }
-    ],
-    "provisioners": [
-        {
+    "builders": [{
+        "type": "virtualbox-iso",
+        "communicator": "winrm",
+        "disk_size": 61440,
+        "floppy_files": [
+            "Autounattend.xml",
+            "update-windows.ps1",
+            "enable-winrm.ps1",
+            "vagrant.pub"
+        ],
+        "guest_os_type": "Windows10_64",
+        "headless": false,
+        "iso_url": "{{user `iso_path`}}",
+        "iso_checksum_type": "sha256",
+        "iso_checksum": "{{user `iso_sha256`}}",
+        "winrm_username": "vagrant",
+        "winrm_password": "vagrant",
+        "winrm_timeout": "6h",
+        "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+        "guest_additions_mode": "attach",
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "4096"],
+            ["modifyvm", "{{.Name}}", "--cpus", "2"],
+            ["modifyvm", "{{.Name}}", "--vram", "32"]
+        ]
+    }],
+    "provisioners": [{
             "type": "windows-restart",
             "restart_timeout": "30m"
         },
         {
-            "type":   "powershell",
+            "type": "powershell",
             "script": "enable-rdp.ps1"
         },
         {
-          "type":   "powershell",
-          "script": "guest-tools.ps1"
+            "type": "powershell",
+            "script": "enable-ssh.ps1"
         },
         {
-          "type":   "powershell",
-          "script": "chocolatey.ps1"
+            "type": "powershell",
+            "script": "guest-tools.ps1"
         },
         {
-          "type":   "powershell",
-          "script": "choco-packs.ps1"
+            "type": "powershell",
+            "script": "chocolatey.ps1"
+        },
+        {
+            "type": "powershell",
+            "script": "choco-packs.ps1"
         },
         {
             "type": "windows-restart"
         },
         {
-            "type":   "powershell",
+            "type": "powershell",
             "scripts": [
                 "final-tweaks.ps1",
                 "compact.ps1"
             ]
         }
     ],
-    "post-processors": [
-        {
-            "type": "vagrant",
-            "keep_input_artifact": false,
-            "output": "builds/{{user `name`}}.{{.Provider}}.box"
-        }
-    ]
+    "post-processors": [{
+        "type": "vagrant",
+        "keep_input_artifact": false,
+        "output": "builds/{{user `name`}}.{{.Provider}}.box"
+    }]
 }
